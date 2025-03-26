@@ -7,7 +7,7 @@ public class Constant {
     public final String EMAIL_SUFFIX = "@a.a";
 
     @UtilityClass
-    public static class URL {
+    public class Url {
         public final String BASE_URL = "https://pizzeria.skillbox.cc/";
 
     }
