@@ -1,7 +1,7 @@
 package ui.auth;
 
 import data.RegisterData;
-import messages.auth.RegisterMessage;
+import messages.auth.RegisterExpectedResult;
 import messages.fail.FailMessage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -26,22 +26,22 @@ public class RegisterPageTest extends BasePageTest {
         username = StringGenerator.getUniqueString();
         email = StringGenerator.getUniqueString() + Constant.EMAIL_SUFFIX;
         password = StringGenerator.getUniqueString();
+
+        basePage.open(Constant.Url.BASE_URL);
     }
 
     @Test
     public void successRegister() {
-        basePage.open(Constant.Url.BASE_URL);
         String message = openRegisterPage()
                 .fillOutForm(username, email, password)
                 .clickRegisterButton()
                 .getSuccessRegisterMessage();
 
-        Assert.assertEquals(message, RegisterMessage.SUCCESS_REGISTER, FailMessage.MESSAGE_NOT_MATCH_EXPECTED);
+        Assert.assertEquals(message, RegisterExpectedResult.SUCCESS_REGISTER, FailMessage.MESSAGE_NOT_MATCH_EXPECTED);
     }
 
     @Test
     public void repeatRegister() {
-        basePage.open(Constant.Url.BASE_URL);
         openRegisterPage()
                 .fillOutForm(username, email, password)
                 .clickRegisterButton()
@@ -51,20 +51,19 @@ public class RegisterPageTest extends BasePageTest {
                 .clickRegisterButton()
                 .getErrorMessage();
 
-        Assert.assertEquals(message, RegisterMessage.REPEAT_REGISTER, FailMessage.MESSAGE_NOT_MATCH_EXPECTED);
+        Assert.assertEquals(message, RegisterExpectedResult.REPEAT_REGISTER, FailMessage.MESSAGE_NOT_MATCH_EXPECTED);
     }
 
     @Test
     public void missingPasswordRegister() {
         String password = RegisterData.EMPTY_PASSWORD;
 
-        basePage.open(Constant.Url.BASE_URL);
         String message = openRegisterPage()
                 .fillOutForm(username, email, password)
                 .clickRegisterButton()
                 .getErrorMessage();
 
-        Assert.assertEquals(message, RegisterMessage.MISSING_PASSWORD_REGISTER, FailMessage.MESSAGE_NOT_MATCH_EXPECTED);
+        Assert.assertEquals(message, RegisterExpectedResult.MISSING_PASSWORD_REGISTER, FailMessage.MESSAGE_NOT_MATCH_EXPECTED);
     }
 
     private RegisterPage openRegisterPage() {
