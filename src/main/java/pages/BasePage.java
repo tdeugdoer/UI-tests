@@ -13,6 +13,7 @@ public class BasePage {
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
+        driver.manage().window().maximize();
     }
 
     public void open(String url) {
