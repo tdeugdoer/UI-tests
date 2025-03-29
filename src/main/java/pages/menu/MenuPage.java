@@ -25,6 +25,9 @@ public class MenuPage extends BasePage {
     @FindBy(xpath = "//div[@class='price-cart']/descendant::bdi")
     private List<WebElement> menuCardsPrices;
 
+    @FindBy(xpath = "//a[@class='button product_type_simple add_to_cart_button ajax_add_to_cart']")
+    private List<WebElement> addToCartButtons;
+
     @FindBy(xpath = "//span[contains(@class, 'ui-slider-handle ui-state-default ui-corner-all')][1]")
     private WebElement minPriceSlider;
 
@@ -70,6 +73,14 @@ public class MenuPage extends BasePage {
 
     public MenuPage clickPriceFilteringButton() {
         priceFilteringButton.click();
+        return this;
+    }
+
+    public MenuPage addToCartFirstProduct() {
+        if (!addToCartButtons.isEmpty()) {
+            addToCartButtons.getFirst().click();
+        } else throw new IllegalStateException(Constant.ExceptionMessage.UNABLE_ADD_TO_CART_ERROR);
+
         return this;
     }
 

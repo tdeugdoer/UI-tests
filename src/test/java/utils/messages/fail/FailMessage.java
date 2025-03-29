@@ -1,4 +1,4 @@
-package messages.fail;
+package utils.messages.fail;
 
 import lombok.experimental.UtilityClass;
 

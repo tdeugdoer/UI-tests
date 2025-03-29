@@ -1,14 +1,14 @@
 package ui.catalog;
 
-import messages.catalog.MenuExpectedResult;
-import messages.fail.FailMessage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.BasePage;
 import pages.menu.MenuPage;
 import ui.BasePageTest;
-import utils.Constant;
+import utils.TestConstant;
+import utils.messages.catalog.MenuExpectedResult;
+import utils.messages.fail.FailMessage;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class MenuPageTest extends BasePageTest {
 
     @BeforeMethod
     public void setUp() {
-        basePage.open(Constant.Url.BASE_URL);
+        basePage.open(TestConstant.BASE_URL);
     }
 
     @Test
@@ -49,14 +49,12 @@ public class MenuPageTest extends BasePageTest {
         Integer expectedMinPrice = 300;
         Integer expectedMaxPrice = 480;
 
-
         basePage.clickMenuButton();
         List<Float> menuCardsPrices = menuPage
                 .changeMinPrice(expectedMinPrice)
                 .changeMaxPrice(expectedMaxPrice)
                 .clickPriceFilteringButton()
                 .getMenuCardsPrices();
-
 
         Assert.assertTrue(menuCardsPrices.stream()
                 .allMatch(price -> price >= expectedMinPrice), FailMessage.MENU_NOT_FILTERED_BY_MIN_PRICE);

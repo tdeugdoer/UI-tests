@@ -1,8 +1,5 @@
 package ui.auth;
 
-import data.RegisterData;
-import messages.auth.RegisterExpectedResult;
-import messages.fail.FailMessage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -10,8 +7,11 @@ import pages.BasePage;
 import pages.auth.LoginPage;
 import pages.auth.RegisterPage;
 import ui.BasePageTest;
-import utils.Constant;
 import utils.StringGenerator;
+import utils.TestConstant;
+import utils.data.RegisterData;
+import utils.messages.auth.RegisterExpectedResult;
+import utils.messages.fail.FailMessage;
 
 public class RegisterPageTest extends BasePageTest {
     private final BasePage basePage = new BasePage(driver);
@@ -24,10 +24,10 @@ public class RegisterPageTest extends BasePageTest {
     @BeforeMethod
     public void setUp() {
         username = StringGenerator.getUniqueString();
-        email = StringGenerator.getUniqueString() + Constant.EMAIL_SUFFIX;
+        email = StringGenerator.getUniqueString() + TestConstant.EMAIL_SUFFIX;
         password = StringGenerator.getUniqueString();
 
-        basePage.open(Constant.Url.BASE_URL);
+        basePage.open(TestConstant.BASE_URL);
     }
 
     @Test
@@ -67,7 +67,7 @@ public class RegisterPageTest extends BasePageTest {
     }
 
     private RegisterPage openRegisterPage() {
-        basePage.clickLoginButton();
+        basePage.clickLoginPageButton();
         loginPage.clickRegisterButton();
         return registerPage;
     }

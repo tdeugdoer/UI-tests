@@ -1,4 +1,4 @@
-package messages.catalog;
+package utils.messages.catalog;
 
 import lombok.experimental.UtilityClass;
 
