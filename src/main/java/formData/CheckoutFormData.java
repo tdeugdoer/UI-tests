@@ -1,4 +1,4 @@
-package pages.cart.formData;
+package formData;
 
 import lombok.Builder;
 import lombok.Data;
