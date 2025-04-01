@@ -3,6 +3,7 @@ package ui.catalog;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.BasePage;
 import pages.menu.MenuPage;
 import ui.BasePageTest;
@@ -29,8 +30,10 @@ public class MenuPageTest extends BasePageTest {
         String resultCount = menuPage.getResultCount();
         Integer cardsCount = menuPage.getMenuCardsSize();
 
-        Assert.assertEquals(resultCount, MenuExpectedResult.COUNT_CARD_MESSAGE, FailMessage.CARD_COUNT_NOT_MATCH_EXPECTED);
-        Assert.assertEquals(cardsCount, MenuExpectedResult.EXPECTED_CARD_COUNT, FailMessage.CARD_COUNT_NOT_MATCH_EXPECTED);
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(resultCount, "MenuExpectedResult.COUNT_CARD_MESSAGE", FailMessage.CARD_COUNT_NOT_MATCH_EXPECTED);
+        softAssert.assertEquals(cardsCount, MenuExpectedResult.EXPECTED_CARD_COUNT, FailMessage.CARD_COUNT_NOT_MATCH_EXPECTED);
+        softAssert.assertAll();
     }
 
     @Test
@@ -40,8 +43,10 @@ public class MenuPageTest extends BasePageTest {
         String resultCount = menuPage.getResultCount();
         Integer cardsCount = menuPage.getMenuCardsSize();
 
-        Assert.assertEquals(resultCount, MenuExpectedResult.COUNT_CARD_MESSAGE, FailMessage.CARD_COUNT_NOT_MATCH_EXPECTED);
-        Assert.assertEquals(cardsCount, MenuExpectedResult.EXPECTED_CARD_COUNT, FailMessage.CARD_COUNT_NOT_MATCH_EXPECTED);
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(resultCount, MenuExpectedResult.COUNT_CARD_MESSAGE, FailMessage.CARD_COUNT_NOT_MATCH_EXPECTED);
+        softAssert.assertEquals(cardsCount, MenuExpectedResult.EXPECTED_CARD_COUNT, FailMessage.CARD_COUNT_NOT_MATCH_EXPECTED);
+        softAssert.assertAll();
     }
 
     @Test
@@ -56,10 +61,12 @@ public class MenuPageTest extends BasePageTest {
                 .clickPriceFilteringButton()
                 .getMenuCardsPrices();
 
-        Assert.assertTrue(menuCardsPrices.stream()
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(menuCardsPrices.stream()
                 .allMatch(price -> price >= expectedMinPrice), FailMessage.MENU_NOT_FILTERED_BY_MIN_PRICE);
-        Assert.assertTrue(menuCardsPrices.stream()
+        softAssert.assertTrue(menuCardsPrices.stream()
                 .allMatch(price -> price <= expectedMaxPrice), FailMessage.MENU_NOT_FILTERED_BY_MAX_PRICE);
+        softAssert.assertAll();
     }
 
     @Test

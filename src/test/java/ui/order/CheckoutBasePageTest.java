@@ -12,14 +12,12 @@ import pages.checkout.CheckoutBasePage;
 import pages.checkout.CheckoutDataFillingPage;
 import pages.menu.MenuPage;
 import ui.BasePageTest;
+import utils.DateUtils;
 import utils.TestConstant;
 import utils.data.CheckoutData;
 import utils.data.LoginData;
 import utils.messages.checkout.CheckoutExpectedResult;
 import utils.messages.fail.FailMessage;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class CheckoutBasePageTest extends BasePageTest {
     private final BasePage basePage = new BasePage(driver);
@@ -29,18 +27,8 @@ public class CheckoutBasePageTest extends BasePageTest {
     private final CheckoutAuthorizationPage checkoutAuthorizationPage = new CheckoutAuthorizationPage(driver);
     private final CheckoutDataFillingPage checkoutDataFillingPage = new CheckoutDataFillingPage(driver);
 
-    @BeforeMethod
-    public void setUp() {
-        basePage.open(TestConstant.BASE_URL);
-    }
-
-    @Test
-    public void testPizzaOrder() {
-        AuthorizationFormData authorizationFormData = AuthorizationFormData.builder()
-                .username(LoginData.EXISTING_EMAIL)
-                .password(LoginData.EXISTING_PASSWORD)
-                .build();
-        CheckoutFormData checkoutFormData = CheckoutFormData.builder()
+    private static CheckoutFormData getCheckoutFormData() {
+        return CheckoutFormData.builder()
                 .firstName(CheckoutData.FIRST_NAME)
                 .lastName(CheckoutData.LAST_NAME)
                 .country(CheckoutData.COUNTRY)
@@ -50,10 +38,26 @@ public class CheckoutBasePageTest extends BasePageTest {
                 .postcode(CheckoutData.POSTCODE)
                 .phone(CheckoutData.PHONE)
                 .build();
+    }
 
-        LocalDate tomorrow = LocalDate.now().plusDays(1);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        String tomorrowString = tomorrow.format(formatter);
+    private static AuthorizationFormData getAuthorizationFormData() {
+        return AuthorizationFormData.builder()
+                .username(LoginData.EXISTING_EMAIL)
+                .password(LoginData.EXISTING_PASSWORD)
+                .build();
+    }
+
+    @BeforeMethod
+    public void setUp() {
+        basePage.open(TestConstant.BASE_URL);
+    }
+
+    @Test
+    public void testPizzaOrder() {
+        AuthorizationFormData authorizationFormData = getAuthorizationFormData();
+        CheckoutFormData checkoutFormData = getCheckoutFormData();
+
+        String tomorrowString = DateUtils.getTomorrowDateString();
 
         basePage.clickPizzaButton();
         menuPage.addToCartFirstProduct();
