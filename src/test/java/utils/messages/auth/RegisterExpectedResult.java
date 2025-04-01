@@ -1,4 +1,4 @@
-package messages.auth;
+package utils.messages.auth;
 
 import lombok.experimental.UtilityClass;
 

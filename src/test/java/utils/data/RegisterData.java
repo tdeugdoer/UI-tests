@@ -1,4 +1,4 @@
-package data;
+package utils.data;
 
 import lombok.experimental.UtilityClass;
 
